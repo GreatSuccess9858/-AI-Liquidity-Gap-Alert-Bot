@@ -4,7 +4,11 @@
 
 <h1 align="center">🕷️ AI Liquidity Gap Alert Bot</h1>
 <div align="center">
+  ```
+  
   [![Telegram](https://img.shields.io/badge/Message_on_Telegram-@spidertrading100-26a5e4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spidertrading100)
+
+  ---
 </div>
 <p align="center">
   <strong>Detect sudden liquidity gaps in order books before they move the market.</strong>
