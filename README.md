@@ -1,188 +1,201 @@
-# MERN JWT Auth
+<p align="center">
+  <img src="https://img.shields.io/badge/AI-Liquidity%20Gap%20Alert-10b981?style=for-the-badge&logo=robot&logoColor=white" alt="AI Liquidity Gap Alert Bot" />
+</p>
 
-[![GitHub license](https://img.shields.io/github/license/vishalnagda1/mern-jwt-auth?style=plastic)](https://github.com/vishalnagda1/mern-jwt-auth/blob/master/LICENSE) [![Repository version](https://img.shields.io/badge/version-2.0.0-brightgreen?style=plastic)](https://github.com/vishalnagda1/mern-jwt-auth/releases/tag/v2.0.0)
+<h1 align="center">🕷️ AI Liquidity Gap Alert Bot</h1>
+<p align="center">
+  <strong>Detect sudden liquidity gaps in order books before they move the market.</strong>
+</p>
+<p align="center">
+  <em>Get ahead of price spikes and crashes—alerts that lead, not lag.</em>
+</p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-3776ab?style=flat-square&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Binance-Order%20Books-f0b90b?style=flat-square&logo=binance&logoColor=black" alt="Binance" />
+  <img src="https://img.shields.io/badge/Coinbase-Supported-0052ff?style=flat-square&logo=coinbase&logoColor=white" alt="Coinbase" />
+</p>
 
-MERN JWT Auth is a minimal full-stack login/authorization app developed using the `MERN` stack (`MongoDB` for our database, `Express` and `Node` for our backend, and `React` for our frontend). Also integrate `Redux` for state management for our `React` components.
+---
 
-**MERN JWT Auth app will allow users to**
+## 💡 The Idea
 
-- Register
-- Log in
-- Access protected pages only accessible to logged in users
-- Stay logged in when they close the app or refresh the page
-- Log out
+**Liquidity gaps**—when large buy or sell walls suddenly vanish from order books—often precede rapid price moves. Big players don't announce their exits. They pull orders quietly. By the time traditional indicators react, the move has already started.
 
+This bot **watches order books in real time**, detects when significant walls disappear, and **alerts you before the market moves**.
 
+---
 
-## Requirements
+## 🎯 Why Traders Want It
 
-##### **Prerequisites**
+| What You Get | Why It Matters |
+|--------------|----------------|
+| **Early signal** | Liquidity changes often move markets *before* RSI, MACD, or volume react |
+| **Multi-exchange** | Monitors Binance and Coinbase simultaneously |
+| **Configurable thresholds** | Track walls from $100k to $10M+ — tune to your style |
+| **Confidence scores** | AI-inspired scoring based on wall size, removal speed, and proximity to mid |
 
-You should have at least a basic understanding of fundamental programming concepts and some experience with introductory [`HTML`](https://developer.mozilla.org/en-US/docs/Web/HTML)/[`CSS`](https://developer.mozilla.org/en-US/docs/Learn/CSS)/[`Javascript`](https://developer.mozilla.org/en-US/docs/Web/JavaScript). And the knowledge of `MERN` stack  ([`Mongo`](https://university.mongodb.com/), [`Express`](https://expressjs.com/), [`React`](https://reactjs.org/), [`Node`](https://nodejs.dev/)) is an advantage.
+> *"When big players pull their orders, it can signal an imminent move."*
 
-##### **Install**
+---
 
-Lastly, make sure you have the following installed.
+## 🔄 How It Works
 
-- Latest version of [Node.js](https://nodejs.org/en/)
-- Latest version of [NPM (Node Package Manage)](https://www.npmjs.com/get-npm)
-- Latest version of [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
-- Latest version of [git](https://git-scm.com/) (**This is optional. It requires only if you choose to clone project**)
-
-
-
-### Getting Started
-
-1. Either you can **clone** or **download** repository from GitHub.
-
-   - Clone with HTTPS *(required [git](https://git-scm.com/) installed in your system)*
-
-     ```shell
-     git clone https://github.com/vishalnagda1/mern-jwt-auth.git
-     ```
-
-   - Clone with SSH *(required [git](https://git-scm.com/) installed in your system)*
-
-     ```sh
-     git clone git@github.com:vishalnagda1/mern-jwt-auth.git
-     ```
-
-   - [Download Zip](https://github.com/vishalnagda1/mern-jwt-auth/archive/master.zip)
-
-2. Navigate to project directory in the terminal or command prompt.
-
-   ```shell
-   cd mern-jwt-auth
-   ```
-
-3. Install project dependencies
-
-   ```shell
-   npm i && npm run client-install
-   ```
-
-4. Create a `keys.js` file in `config` directory
-
-   - If you are using **Windows** `Command Promtp` or `Powershell`
-
-     ```powershell
-     copy config/keys.sample.js config/keys.js
-     ```
-
-   - If you using `Mac` or `Linux`
-
-     ```shell
-     cp config/keys.sample.js config/keys.js
-     ```
-
-   **Note:** update `keys.js` file variables as per the requirements.
-
-5. Run the project server
-
-   - Run development server (*it runs both **frontend** and **backend** server together at same time*)
-
-     ```shell
-     npm run dev
-     ```
-
-   - Run **backend** development server
-
-     ```shell
-     npm run server
-     ```
-
-   - Run **frontend** development server
-
-     ```shell
-     npm run client
-     ```
-
-   - Run **production** server
-
-     - Build and run the production server
-
-       ```shell
-       npm run build-prod
-       ```
-
-     **OR**
-
-     - Create build first
-
-       ```shell
-       npm run build
-       ```
-
-       Run the production server
-
-       ```shell
-       npm run prod
-       ```
-
-       
-
-6. Project server is running at:
-
-   - **Development**
-     - Frontend server is running at [http://localhost:3000](http://localhost:3000)
-     - Backend server is running at [http://localhost:5000](http://localhost:5000)
-
-   - **Production** server is running at [http://localhost:5000](http://localhost:5000)
-
-
-### **Note**
-
-**You might get below give error while runnning client server** checkout [this issue](https://github.com/webpack/webpack/issues/14532) for more information.
-
-`digital envelope routines::unsupported`
-
-Then you can execute below command before starting the server
-```shell
-export NODE_OPTIONS=--openssl-legacy-provider
+```
+┌─────────────────┐     ┌─────────────────────┐     ┌─────────────────┐
+│   Order Books   │ ──► │   AI Analyzer       │ ──► │  Real-time      │
+│  Binance        │     │   Detects wall      │     │  Alerts         │
+│  Coinbase       │     │   disappearances    │     │  Console / Log  │
+└─────────────────┘     └─────────────────────┘     └─────────────────┘
 ```
 
+1. **Monitors** order books from Binance and Coinbase via WebSocket
+2. **AI analyzes** large buy/sell walls (≥ $500k by default) and tracks when they disappear
+3. **Alerts** traders before potential price spikes or crashes
 
-#### Backend APIs
+---
 
-1. Register
+## 📺 Learn More: Order Books & Liquidity
 
-   - Endpoint - `/api/users/register`
+Understanding order book dynamics helps you get the most from this bot. Here are some excellent resources:
 
-   - HTTP Method - POST
+| Resource | Description |
+|----------|-------------|
+| [📹 Order Book in Crypto Explained Simply](https://www.youtube.com/watch?v=72rrMeMCMFU) | Full tutorial on how order books work |
+| [📹 Buy & Sell Walls (and How They're Manipulated)](https://www.youtube.com/watch?v=ZHTH0Eg6rCQ) | Deep dive into walls and market manipulation |
+| [📹 Order Book Heatmaps & Market Depth](https://www.youtube.com/watch?v=Q6Ybxw-fnxM) | Visualizing liquidity with heatmaps |
 
-   - Payload
+---
 
-     ```json
-     {
-         "name": "Vishal",
-         "email": "test@test.com",
-         "password": "test123",
-         "password2": "test123"
-     }
-     ```
+## 📸 How It Works (Visual)
 
-2. Login
+```mermaid
+flowchart LR
+    subgraph Exchanges
+        B[Binance]
+        C[Coinbase]
+    end
+    
+    subgraph Bot
+        A[AI Analyzer]
+        D[Alert Manager]
+    end
+    
+    B --> A
+    C --> A
+    A -->|Liquidity gap detected| D
+    D -->|Console & Log| E[Trader]
+```
 
-   - Endpoint - `/api/users/login`
+---
 
-   - HTTP Method - `POST`
+## 📬 Example Alert
 
-   - Payload
+```
+==================================================
+  🔔 Liquidity Gap Detected
+==================================================
+  Symbol:      BTC/USDT
+  Exchange:    Binance
+  Event:       Buy wall removed
+  Direction:   Possible upward breakout
+  Confidence:  82%
+==================================================
+```
 
-     ```json
-     {
-     	"email": "test@test.com",
-     	"password": "test123"
-     }
-     ```
+---
 
+## 🚀 Quick Start
 
+```bash
+# Clone and enter the project
+cd liquidity_gap_bot
 
-#### Contributing
+# Install dependencies
+pip install -r requirements.txt
 
-1. Fork it ( https://github.com/vishalnagda1/mern-jwt-auth/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new pull request.
+# Run the bot
+python main.py
+```
+
+The bot starts monitoring immediately. Press `Ctrl+C` to stop.
+
+---
+
+## ⚙️ Configuration
+
+Edit `config.py` to customize behavior:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `symbols_binance` | `["BTC/USDT", "ETH/USDT"]` | Pairs to monitor on Binance |
+| `symbols_coinbase` | `["BTC/USD", "ETH/USD"]` | Pairs to monitor on Coinbase |
+| `exchanges` | `["binance", "coinbase"]` | Which exchanges to watch |
+| `min_wall_size_usd` | `500_000` | Minimum wall size to track (USD) |
+| `wall_removal_threshold` | `0.8` | % of wall that must disappear (80%) |
+| `time_window_seconds` | `60` | Max time for "sudden" removal |
+| `min_confidence` | `0.6` | Minimum confidence to alert (0–1) |
+
+---
+
+## 📁 Project Structure
+
+```
+liquidity_gap_bot/
+├── main.py              # Entry point
+├── config.py            # Configuration
+├── requirements.txt
+├── src/
+│   ├── exchanges/       # Order book monitors (WebSocket)
+│   │   ├── binance.py
+│   │   └── coinbase.py
+│   ├── analyzer/        # Liquidity gap detection
+│   │   └── liquidity_analyzer.py
+│   └── alerts/          # Alert output
+│       └── alert_manager.py
+```
+
+---
+
+## 📊 Confidence Score
+
+The AI-inspired confidence (0–100%) considers:
+
+- **Wall size** — Larger walls = more significant
+- **Removal speed** — Faster disappearance = more suspicious
+- **Proximity to mid** — Closer to current price = more impactful
+
+---
+
+## 🔔 Alert Output
+
+- **Console** — Alerts print to stdout in real time
+- **File** — Alerts append to `alerts.log` (configurable)
+
+To add **Discord** or **Telegram** alerts, extend `src/alerts/alert_manager.py`.
+
+---
+
+---
+
+<br>
+
+<div align="center">
+
+### 🕸️ **SPIDER TRADING**
+
+```
+┌─────────────────────────────────────────┐
+│  📱 TELEGRAM: @spidertrading100         │
+│                                         │
+│  Questions • Feedback • Custom builds   │
+└─────────────────────────────────────────┘
+```
+
+[![Telegram](https://img.shields.io/badge/Message_on_Telegram-@spidertrading100-26a5e4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/spidertrading100)
+
+---
+
+*Built for traders who want to stay ahead of the market.*
+
+</div>

@@ -1,0 +1,2 @@
+# AI Liquidity Gap Alert Bot
+websockets>=12.0
