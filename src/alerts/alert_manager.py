@@ -26,6 +26,10 @@ class AlertManager:
             if self.to_console:
                 print(text)
             if self.to_file:
+                 self.to_console = to_console
+                self.to_file = to_file
+                self.file_path = Path(file_path)
+                self._lock = asyncio.Lock()
                 with open(self.file_path, "a", encoding="utf-8") as f:
                     f.write(text)
                     f.write("\n")

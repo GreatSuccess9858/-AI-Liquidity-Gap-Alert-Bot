@@ -65,6 +65,25 @@ class BinanceOrderBookMonitor(OrderBookMonitor):
                 except (json.JSONDecodeError, KeyError) as e:
                     print(f"[Binance] Parse error: {e}")
 
+    async def _connect_and_subscribe(self) -> None:
+        url = self._get_ws_url()
+        async with websockets.connect(
+            url,
+            ping_interval=20,
+            ping_timeout=60,
+            close_timeout=5,
+        ) as ws:
+            async for msg in ws:
+                if not self._running:
+                    break
+                try:
+                    data = json.loads(msg)
+                    snapshot = self._parse_message(data)
+                    if snapshot:
+                        await self.callback(snapshot)
+                except (json.JSONDecodeError, KeyError) as e:
+                    print(f"[Binance] Parse error: {e}")
+
     async def _run_loop(self) -> None:
         """Run connection loop with reconnection."""
         backoff = 1

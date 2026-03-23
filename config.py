@@ -12,6 +12,7 @@ class Config:
     # Symbols to monitor. Use BTC/USDT for Binance, BTC/USD for Coinbase.
     symbols_binance: List[str] = field(default_factory=lambda: ["BTC/USDT", "ETH/USDT"])
     symbols_coinbase: List[str] = field(default_factory=lambda: ["BTC/USD", "ETH/USD"])
+    symbols_coinbase: List[str] = field(default_factory=lambda: ["BTC/USD", "THE/USD"])
 
     # Exchanges to monitor
     exchanges: List[str] = field(default_factory=lambda: ["binance", "coinbase"])
@@ -32,6 +33,7 @@ class Config:
     # Alert output
     alert_to_console: bool = True
     alert_to_file: bool = True
+    alert_to_control: bool = True
     alert_file_path: str = "alerts.log"
 
 

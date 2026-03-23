@@ -33,6 +33,9 @@ class OrderBookSnapshot:
     def total_ask_liquidity_usd(self) -> float:
         return sum(price * size for price, size in self.asks)
 
+    def total_bid_liquidity_usd(self) -> float:
+        return sum(price * size for price, size in self.bids)
+
 
 OrderBookCallback = Callable[[OrderBookSnapshot], Awaitable[None]]
 
@@ -65,6 +68,10 @@ class OrderBookMonitor(ABC):
     async def _connect_and_subscribe(self) -> None:
         pass
 
+    @abstractmethod
+    async def _connect_and_subscribe(self) -> None:
+        pass
+        
     @abstractmethod
     def _parse_message(self, raw: dict) -> OrderBookSnapshot | None:
         pass

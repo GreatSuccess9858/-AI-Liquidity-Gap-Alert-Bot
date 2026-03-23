@@ -173,6 +173,12 @@ class LiquidityGapAnalyzer:
                             price_level=price,
                             mid_price=mid,
                             timestamp=snapshot.timestamp,
+                            exchange=snapshot.exchange,
+                            side=side,
+                            event=self._get_event_description(side),
+                            direction_hint=self._get_direction_hint(side),
+                            confidence=confidence,
+                            wall_size_usd=prev_size,
                         )
                         if self.on_alert:
                             await self.on_alert(alert)

@@ -65,6 +65,17 @@ async def main() -> None:
             except Exception:
                 pass
         print("\nStopped.")
+          exchanges_lower = [e.lower() for e in config.exchanges]
+    if "binance" in exchanges_lower:
+        for symbol in config.symbols_binance:
+            monitors.append(
+                BinanceOrderBookMonitor(symbol, on_snapshot, config.order_book_depth)
+            )
+    if "coinbase" in exchanges_lower:
+        for symbol in config.symbols_coinbase:
+            monitors.append(
+                CoinbaseOrderBookMonitor(symbol, on_snapshot, config.order_book_depth)
+            )
 
 
 if __name__ == "__main__":

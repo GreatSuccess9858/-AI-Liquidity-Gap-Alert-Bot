@@ -56,6 +56,23 @@ class CoinbaseOrderBookMonitor(OrderBookMonitor):
                     self._asks[price] = size
         return self._build_snapshot()
 
+     def _apply_l2update(self, raw: dict) -> OrderBookSnapshot | None:
+        if raw.get("type") != "l2update":
+            return None
+        for change in raw.get("changes", []):
+            side, price, size = change[0], float(change[1]), float(change[2])
+            if side == "buy":
+                if size == 0:
+                    self._bids.pop(price, None)
+                else:
+                    self._bids[price] = size
+            else:
+                if size == 0:
+                    self._asks.pop(price, None)
+                else:
+                    self._asks[price] = size
+        return self._build_snapshot()
+
     def _build_snapshot(self) -> OrderBookSnapshot:
         bid_list = sorted(self._bids.items(), key=lambda x: -x[0])[: self.depth]
         ask_list = sorted(self._asks.items(), key=lambda x: x[0])[: self.depth]

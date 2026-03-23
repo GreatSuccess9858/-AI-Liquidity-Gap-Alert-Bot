@@ -1,1 +1,1 @@
-"""AI Liquidity Gap Alert Bot."""
+"""AI Trading Alert Bot."""
